@@ -1,75 +1,59 @@
-/* Información obtenida desde: https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/sort */
-
-
-let estadoDelJuego=[
-    {jugador:1, vidas:5, poder:8000},
-    {jugador:2, vidas:3, poder:5000},
-    {jugador:3, vidas:9, poder:20000},
-    {jugador:4, vidas:4, poder:5030},
-    {jugador:5, vidas:1, poder:150000}];
+let jugadores=[{jugador:1, vidas:5, poder:8000, avatar:"../img/kakashi.gif"},
+    {jugador:2, vidas:3, poder:5000, avatar:"../img/pj.jpg"},
+    {jugador:3, vidas:9, poder:20000, avatar:"../img/solaire.jpg"},
+    {jugador:4, vidas:4, poder:5030, avatar:"../img/tsunade.jpg"},
+    {jugador:5, vidas:1, poder:150000, avatar:"../img/pj2.jpg"}];
 
 
 
-/* Al método .sort se le asigna una función para que compare los valores. Si no se le brinda una función el método sort ordena de forma automática apoyandose en la codificación Unicode */
 
-
-const IngresarCriterio=_=>(prompt("Ingresá el criterio|VIDAS|JUGADOR|PODER").toUpperCase());
-
-function OrdenarDescendente(criterio) {
-    /*
-    Si el resultado es <0, el primer indicie se posiciona frente al segundo indice.
-    si el resultado es =0 los indices quedan como están.
-    si el resultado es >0, el segundo indice se posiciona frente al primer indice. 
-    */
-    if(criterio=="PODER"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (segundoNumero.poder-primerNumero.poder);
-        })
-    }
-    if(criterio=="VIDAS"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (segundoNumero.vidas-primerNumero.vidas);
-        })
-    }
-    if(criterio=="JUGADOR"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (segundoNumero.jugador-primerNumero.jugador);
-        })
-    }
-    console.table(estadoDelJuego);
+function CrearTitulo(){
+    const contenedorTitulo=document.createElement('div');
+    contenedorTitulo.classList="container text-center";
+    const titulo=document.createElement('h1');
+    titulo.classList="h1"
+    titulo.textContent="Presentación de jugadores"
+    contenedorTitulo.appendChild(titulo);
+    document.body.appendChild(contenedorTitulo);
 }
 
-function OrdenarAscendente(criterio) {
-    /* 
-    Si el resultado es <0, el primer indicie se posiciona frente al segundo indice.
-    si el resultado es =0 los indices quedan como están.
-    si el resultado es >0, el segundo indice se posiciona frente al primer indice. 
-    */
-    if(criterio=="PODER"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (primerNumero.poder-segundoNumero.poder);
-        })
+function IncluirJugadores(){
+    const contenedorJugadores=document.createElement('div');
+    contenedorJugadores.classList="container align-items-center";
+    console.log(jugadores.length);
+    for(let i=0; i<jugadores.length;i++){
+        let tarjeta=document.createElement('div');
+        tarjeta.classList="card mt-2 mb-2";
+        let imagenJugador=document.createElement('img');
+        imagenJugador.classList="card-img-top imagenTarjeta";
+        console.log(jugadores[i].avatar);
+        imagenJugador.src=jugadores[i].avatar;
+        tarjeta.appendChild(imagenJugador);
+        let infoJugador=document.createElement('div');
+        infoJugador.classList='card-body';
+        let numeroVidaPoder=document.createElement('p');
+        numeroVidaPoder.classList='card-text';
+        numeroVidaPoder.textContent=`Este es el jugador número: ${jugadores[i].jugador}
+        Vidas: ${jugadores[i].vidas}
+        Poder: ${jugadores[i].poder}`
+        infoJugador.appendChild(numeroVidaPoder);
+        tarjeta.appendChild(infoJugador);
+        contenedorJugadores.appendChild(tarjeta);
     }
-    if(criterio=="VIDAS"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (primerNumero.vidas-segundoNumero.vidas);
-        })
-    }
-    if(criterio=="JUGADOR"){
-        estadoDelJuego.sort(function(primerNumero,segundoNumero){
-            return (primerNumero.jugador-segundoNumero.jugador);
-        })
-    }
-    console.table(estadoDelJuego);
+    document.body.appendChild(contenedorJugadores);
 }
 
-console.log('--------------------');
 
-function main() {
-    let criterio=IngresarCriterio();
-    OrdenarDescendente(criterio);
-    OrdenarAscendente(criterio)
-    
+
+function main(){
+    CrearTitulo();
+    IncluirJugadores();
 }
 
-main();
+
+main()
+
+
+
+
+
